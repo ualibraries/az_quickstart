@@ -95,13 +95,14 @@
                 </a>
                 {% endif %}
               </div>
-              {% if page.header_ua_utilities %}
               <div class="col-2 col-sm-9">
                 <div class="row">
                   {{ page.header_ua_utilities }}
+                  <div class="navbar-dark navbar-expand-md mt-3">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="offcanvas" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                  </div>
                 </div>
               </div>
-              {% endif %}
             </div>
           </section>
         </div>
@@ -131,13 +132,12 @@
             <nav{{ navbar_attributes }}>
               {% endif %}
               {% if page.navigation %}
-              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#CollapsingNavbar" aria-controls="CollapsingNavbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-              <div class="collapse navbar-collapse" id="CollapsingNavbar">
+              <div class="navbar-collapse offcanvas-collapse" id="CollapsingNavbar">
                 {{ page.navigation }}
               </div>
               {% endif %}
               {% if sidebar_collapse %}
-              <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="collapse" data-target="#CollapsingLeft" aria-controls="CollapsingLeft" aria-expanded="false" aria-label="Toggle navigation"></button>
+              <button class="navbar-toggler navbar-toggler-left" type="button" data-toggle="offcanvas" data-target="#CollapsingLeft" aria-controls="CollapsingLeft" aria-expanded="false" aria-label="Toggle navigation"></button>
               {% endif %}
               {% if container_navbar %}
             </nav>
