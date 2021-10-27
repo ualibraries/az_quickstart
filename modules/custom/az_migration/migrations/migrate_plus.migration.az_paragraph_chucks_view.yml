@@ -14,8 +14,42 @@ destination:
   default_bundle: az_view_reference
 
 process:
-
   field_az_view_reference:
+    view_display:
+      -
+        plugin: explode
+        source: vname
+        delimeter: '|'
+    target_id:
+      -
+        plugin: extract
+        source: '@view_display'
+        index:
+          - 0
+    display_id:
+      -
+        plugin: extract
+        source: '@view_display'
+        index:
+          - 1
+    argument:
+      -
+        plugin: skip_on_empty
+        method: process
+        source: vargs
+      -
+        plugin: explode
+        delimeter: ','
+      -
+        plugin: sub_process
+        process:
+          id:
+            plugin: migration_lookup
+            migration:
+              - az_event_categories
+              - az_news_tags
+              - az_person_categories
+              - az_person_categories_secondary
     plugin: paragraphs_chunks_view_display_mapping
     source: field_uaqs_view
 

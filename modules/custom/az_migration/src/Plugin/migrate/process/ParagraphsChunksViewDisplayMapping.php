@@ -7,7 +7,7 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * Process Plugin to map view and display for Chunks View paragraphs.
+ * Process plugin to map view and display for views paragraphs.
  *
  * @MigrateProcessPlugin(
  *   id = "paragraphs_chunks_view_display_mapping"
@@ -19,19 +19,36 @@ class ParagraphsChunksViewDisplayMapping extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-
-    // Collecting the view data field values.
+    $transformed_value = [];
     $view_data = [];
+    $view_mappings = self::getViewMappings();
 
-    // Getting view name and display name.
-    $view_display = explode("|", $value['vname']);
-
-    // View argument mapping.
-    if ($value['vargs'] !== "") {
-      $view_data['argument'] = $value['vargs'];
+    if (isset($view_mappings[$value['target_id']])) {
+      $transformed_value['target_id'] = $view_mappings[$value['target_id']]['view'];
+      $transformed_value['display_id'] = $view_mappings[$value['target_id']]['display'][$value['display_id']];
+    }
+    else {
+      $transformed_value['target_id'] = $value['target_id'];
+      $transformed_value['display_id'] = $value['display_id'];
     }
 
-    $value = [];
+    if (isset($value['argument'])) {
+      $transformed_value['argument'] = $value['argument'];
+    }
+
+    // Setting Items per page: 6 for 3 Column news block.
+    if ($view === 'uaqs_news' && $display === 'three_col_news_block') {
+      $view_data['limit'] = 6;
+    }
+    $transformed_value['data'] = serialize($view_data);
+
+    return $transformed_value;
+  }
+
+  /**
+   * Provides Quickstart 1 to Quickstart 2 view mapping data.
+   */
+  protected static function getViewMappings() {
     $uaqs_events = [
       'view' => 'az_events',
       'display' => [
@@ -71,30 +88,13 @@ class ParagraphsChunksViewDisplayMapping extends ProcessPluginBase {
         'page_1' => 'grid',
       ],
     ];
-    $view_mapping = [
+
+    return [
       'uaqs_events' => $uaqs_events,
       'uaqs_news' => $uaqs_news,
       'uaqs_person_directory' => $uaqs_person_directory,
       'uaqs_content_chunks_views_page_by_category' => $uaqs_content_chunks_views_page_by_category,
     ];
-
-    if (isset($view_mapping[$view_display[0]])) {
-      $value['target_id'] = $view_mapping[$view_display[0]]['view'];
-      $value['display_id'] = $view_mapping[$view_display[0]]['display'][$view_display[1]];
-    }
-    else {
-      $value['target_id'] = $view_display[0];
-      $value['display_id'] = $view_display[1];
-    }
-
-    // Setting Items per page: 6 for 3 Column news block.
-    if ($view_display[0] === 'uaqs_news' && $view_display[1] === 'three_col_news_block') {
-      $view_data['limit'] = 6;
-    }
-
-    $value['data'] = serialize($view_data);
-
-    return $value;
   }
 
 }
