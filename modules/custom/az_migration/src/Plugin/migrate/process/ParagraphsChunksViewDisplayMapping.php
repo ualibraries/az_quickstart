@@ -26,14 +26,14 @@ class ParagraphsChunksViewDisplayMapping extends ProcessPluginBase {
     if (isset($view_mappings[$value['target_id']])) {
       $transformed_value['target_id'] = $view_mappings[$value['target_id']]['view'];
       $transformed_value['display_id'] = $view_mappings[$value['target_id']]['display'][$value['display_id']];
+
+      if (isset($value['argument'])) {
+        $transformed_value['argument'] = $value['argument'];
+      }
     }
     else {
       $transformed_value['target_id'] = $value['target_id'];
       $transformed_value['display_id'] = $value['display_id'];
-    }
-
-    if (isset($value['argument'])) {
-      $transformed_value['argument'] = $value['argument'];
     }
 
     // Setting Items per page: 6 for 3 Column news block.

@@ -15,21 +15,22 @@ destination:
 
 process:
   field_az_view_reference:
-    view_display:
+    target_id:
       -
         plugin: explode
         source: vname
         delimeter: '|'
-    target_id:
       -
         plugin: extract
-        source: '@view_display'
         index:
           - 0
     display_id:
       -
+        plugin: explode
+        source: vname
+        delimeter: '|'
+      -
         plugin: extract
-        source: '@view_display'
         index:
           - 1
     argument:
