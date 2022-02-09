@@ -8,6 +8,7 @@ CONTENTS OF THIS FILE
  * Usage Notes
  * Process Plugins
  * Source Plugins
+ * Useful modules
 
 
 INTRODUCTION
@@ -446,3 +447,9 @@ These source plugins are provided by this module.
 - `az_file_migration`
 - `az_node`
 - `az_paragraphs_item`
+
+USEFUL MODULES
+------------
+When debugging migrations, the [Migrate
+Devel](https://www.drupal.org/project/migrate_devel) can be used to print source
+and destination values on the screen when importing or rolling back via `drush`.
