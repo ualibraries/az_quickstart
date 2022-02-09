@@ -451,5 +451,5 @@ These source plugins are provided by this module.
 USEFUL MODULES
 ------------
 When debugging migrations, the [Migrate
-Devel](https://www.drupal.org/project/migrate_devel) can be used to print source
+Devel](https://www.drupal.org/project/migrate_devel) module can be used to print source
 and destination values on the screen when importing or rolling back via `drush`.
