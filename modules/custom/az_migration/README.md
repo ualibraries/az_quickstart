@@ -6,6 +6,9 @@ CONTENTS OF THIS FILE
  * Installation
  * Configuration
  * Usage Notes
+ * Process Plugins
+ * Source Plugins
+ * Useful modules
 
 
 INTRODUCTION
@@ -419,3 +422,34 @@ To rollback menu links, use the following command:
 ```
 drush mr az_menu_links
 ```
+
+PROCESS PLUGINS
+------------
+
+These process plugins are provided by this module.
+
+- `az_migrated_path_lookup`
+- `paragraphs_mapping_flexible_page`
+- `paragraphs_callout_field_merge`
+- `paragraphs_chunks_view_display_mapping`
+- `paragraphs_column_image_field_merge`
+- `paragraphs_extra_info_field_merge`
+- `paragraphs_file_download_field_merge`
+- `paragraphs_fw_media_row_field_merge`
+- `az_paragraphs_media_caption`
+- `text_format_recognizer`
+
+SOURCE PLUGINS
+------------
+
+These source plugins are provided by this module.
+
+- `az_file_migration`
+- `az_node`
+- `az_paragraphs_item`
+
+USEFUL MODULES
+------------
+When debugging migrations, the [Migrate
+Devel](https://www.drupal.org/project/migrate_devel) module can be used to print source
+and destination values on the screen when importing or rolling back via `drush`.
